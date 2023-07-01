@@ -10,12 +10,12 @@ public class HealthCheckController {
 
     @RequestMapping("/liveness")
     public ResponseEntity<String> getHealthCheck(){
-        return ResponseEntity.ok("Ok");
+        return ResponseEntity.ok("OK");
     }
 
     @RequestMapping("/readiness")
     public ResponseEntity<String> getHealthOfReadiness(){
-        return ResponseEntity.ok("Ok");
+        return ResponseEntity.ok("OK");
     }
 
 }
