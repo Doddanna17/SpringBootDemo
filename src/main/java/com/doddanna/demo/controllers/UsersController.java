@@ -40,7 +40,7 @@ public class UsersController {
         Optional<User> userById = userService.getUserById(id);
         if(userById.isPresent())
             return ResponseEntity.ok(userById.get());
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
     }
 
     @DeleteMapping("/{id}")
@@ -48,6 +48,6 @@ public class UsersController {
         Optional<User> userById = userService.deleteUserId(id);
         if(userById.isPresent())
             return ResponseEntity.ok(userById.get());
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
     }
 }
