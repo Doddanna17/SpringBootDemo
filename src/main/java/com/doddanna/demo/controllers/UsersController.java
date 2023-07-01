@@ -1,5 +1,6 @@
 package com.doddanna.demo.controllers;
 
+import com.doddanna.demo.exceptions.UserNotFoundException;
 import com.doddanna.demo.models.User;
 import com.doddanna.demo.services.UserService;
 import com.doddanna.demo.validators.UserValidator;
@@ -38,16 +39,12 @@ public class UsersController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable String id){
         Optional<User> userById = userService.getUserById(id);
-        if(userById.isPresent())
-            return ResponseEntity.ok(userById.get());
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        return ResponseEntity.ok(userById.get());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<User> delete(@PathVariable String id){
         Optional<User> userById = userService.deleteUserId(id);
-        if(userById.isPresent())
-            return ResponseEntity.ok(userById.get());
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        return ResponseEntity.ok(userById.get());
     }
 }

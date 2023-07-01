@@ -1,5 +1,7 @@
 package com.doddanna.demo.services;
 
+import com.doddanna.demo.exceptions.BadRequestException;
+import com.doddanna.demo.exceptions.UserNotFoundException;
 import com.doddanna.demo.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public Optional<User> save(User user) {
         if(inMemoryMap.containsKey(user.getEmail().toLowerCase()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User email is already registered");
+            throw new BadRequestException("User email is already registered");
         user.setId(UUID.randomUUID().toString());
         inMemoryMap.put(user.getEmail().toLowerCase(),user);
         return Optional.of(user);
@@ -38,7 +40,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Optional<User> getUserById(String id) {
-        return inMemoryMap.values().stream().filter(user -> user.getId().equals(id)).findFirst();
+        Optional<User> userOptional = inMemoryMap.values().stream().filter(user -> user.getId().equals(id)).findFirst();
+        if(!userOptional.isPresent())
+            throw new UserNotFoundException("User nof found for "+id);
+        return userOptional;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class UserServiceImpl implements UserService{
     public Optional<User> deleteUserId(String id) {
         Optional<User> userById = inMemoryMap.values().stream().filter(user -> user.getId().equals(id)).findFirst();
         if(!userById.isPresent())
-            return Optional.empty();
+            throw new UserNotFoundException("User nof found for "+id);
         inMemoryMap.remove(userById.get().getEmail().toLowerCase());
         return Optional.of(userById.get());
     }
