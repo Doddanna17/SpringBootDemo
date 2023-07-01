@@ -4,6 +4,7 @@ import com.doddanna.demo.models.User;
 import com.doddanna.demo.services.UserService;
 import com.doddanna.demo.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class UsersController {
 
     @Autowired
+    @Qualifier("UserServiceDBImpl")
     private UserService userService;
 
     @Autowired
@@ -40,8 +42,8 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> delete(@PathVariable String id){
-        Optional<User> userById = userService.deleteUserId(id);
+    public ResponseEntity<Boolean> delete(@PathVariable String id){
+        Optional<Boolean> userById = userService.deleteUserId(id);
         return ResponseEntity.ok(userById.get());
     }
 }
