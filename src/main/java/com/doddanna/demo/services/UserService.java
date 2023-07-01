@@ -16,7 +16,7 @@ public interface UserService {
     public Optional<User> getUserById(String id);
     public Optional<User> getUserByEmail(String email);
 
-    public Optional<User> deleteUserId(String id);
+    public Optional<Boolean> deleteUserId(String id);
     public Optional<User> deleteUserEmail(String email);
     public Optional<User> deleteUser(User user);
 }
