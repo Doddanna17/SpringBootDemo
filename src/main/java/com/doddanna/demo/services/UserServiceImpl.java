@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
     public Optional<User> deleteUserId(String id) {
         Optional<User> userById = inMemoryMap.values().stream().filter(user -> user.getId().equals(id)).findFirst();
         if(!userById.isPresent())
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+            return Optional.empty();
         inMemoryMap.remove(userById.get().getEmail().toLowerCase());
         return Optional.of(userById.get());
     }
