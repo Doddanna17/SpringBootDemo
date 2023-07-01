@@ -1,14 +1,11 @@
 package com.doddanna.demo.controllers;
 
-import com.doddanna.demo.exceptions.UserNotFoundException;
 import com.doddanna.demo.models.User;
 import com.doddanna.demo.services.UserService;
 import com.doddanna.demo.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;

@@ -3,13 +3,10 @@ package com.doddanna.demo.services;
 import com.doddanna.demo.exceptions.BadRequestException;
 import com.doddanna.demo.exceptions.UserNotFoundException;
 import com.doddanna.demo.models.User;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
