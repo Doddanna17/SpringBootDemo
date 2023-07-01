@@ -2,10 +2,7 @@ package com.doddanna.demo.controllers;
 
 import com.doddanna.demo.models.Greetings;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -22,5 +19,23 @@ public class GreetingsController {
                         .to(nameOfSender)
                         .greetedOn(new Date())
                 .build());
+    }
+
+    @PostMapping("/v1")
+    public ResponseEntity<Greetings> createGreetingUsingParametersV1(@RequestParam(name = "message",required = false) String message,
+                                                                   @RequestParam(name = "to", required = true) String to){
+        return ResponseEntity.ok(Greetings
+                .builder()
+                .message(message==null?"System generated message":message)
+                .to(to)
+                .greetedOn(new Date())
+                .build());
+    }
+
+    @PostMapping("/v2")
+    public ResponseEntity<Greetings> createGreetingUsingParametersV2(@RequestBody Greetings greetings){
+        if(greetings.getGreetedOn()==null)
+            greetings.setGreetedOn(new Date());
+        return ResponseEntity.ok(greetings);
     }
 }
